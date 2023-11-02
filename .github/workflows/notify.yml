@@ -11,6 +11,11 @@ jobs:
     name: Tweet release
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        with:
+          egress-policy: audit
+
       - uses: cardinalby/git-get-release-action@319798e20e923b75a49d335f1afdaf6f18422118 # v1.1
         id: releaseInfo
         env:
@@ -28,6 +33,11 @@ jobs:
     name: Notify OpenCollective
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        with:
+          egress-policy: audit
+
       - uses: sequelize/proxy-release-to-open-collective@d8edaf56f12f51518fb97829b699a2e2e6d8166e # main
         with:
           releaseId: ${{ github.event.client_payload.release-id }}
